@@ -1,8 +1,11 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace Discord.Audio
 {
+    /// <summary>
+    /// Manages a connection to an <see cref="IAudioChannel"/>.
+    /// </summary>
     public interface IAudioClient : IDisposable
     {
         event Func<Task> Connected;
@@ -20,7 +23,6 @@ namespace Discord.Audio
         /// <summary> Gets the estimated round-trip latency, in milliseconds, to the voice UDP server. </summary>
         int UdpLatency { get; }
 
-        Task StopAsync();
         Task SetSpeakingAsync(bool value);
 
         /// <summary>Creates a new outgoing stream accepting Opus-encoded data.</summary>

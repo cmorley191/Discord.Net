@@ -28,6 +28,8 @@ namespace Discord
 
         public ulong Id => throw new NotImplementedException();
 
+        public IAudioClient AudioClient => throw new NotImplementedException();
+
         public Task AddPermissionOverwriteAsync(IRole role, OverwritePermissions permissions, RequestOptions options = null)
         {
             throw new NotImplementedException();
@@ -38,7 +40,7 @@ namespace Discord
             throw new NotImplementedException();
         }
 
-        public Task<IAudioClient> ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
+        public Task ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
         {
             throw new NotImplementedException();
         }
@@ -109,6 +111,11 @@ namespace Discord
         }
 
         public Task SyncPermissionsAsync(RequestOptions options = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IAudioChannel.ConnectAsync(bool selfDeaf, bool selfMute, bool external)
         {
             throw new NotImplementedException();
         }

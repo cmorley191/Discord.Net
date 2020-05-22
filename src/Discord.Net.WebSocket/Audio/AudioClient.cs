@@ -50,17 +50,16 @@ namespace Discord.Audio
         public DiscordVoiceAPIClient ApiClient { get; private set; }
         public int Latency { get; private set; }
         public int UdpLatency { get; private set; }
-        public ulong ChannelId { get; internal set; }
+        public ulong? ChannelId { get; internal set; }
         internal byte[] SecretKey { get; private set; }
 
         private DiscordSocketClient Discord => Guild.Discord;
         public ConnectionState ConnectionState => _connection.State;
 
         /// <summary> Creates a new REST/WebSocket discord client. </summary>
-        internal AudioClient(SocketGuild guild, int clientId, ulong channelId)
+        internal AudioClient(SocketGuild guild, int clientId)
         {
             Guild = guild;
-            ChannelId = channelId;
             _audioLogger = Discord.LogManager.CreateLogger($"Audio #{clientId}");
 
             ApiClient = new DiscordVoiceAPIClient(guild.Id, Discord.WebSocketProvider, Discord.UdpSocketProvider);
@@ -131,7 +130,8 @@ namespace Discord.Audio
                 await keepaliveTask.ConfigureAwait(false);
             _keepaliveTask = null;
 
-            while (_heartbeatTimes.TryDequeue(out _)) { }
+            while (_heartbeatTimes.TryDequeue(out _))
+            { }
             _lastMessageTime = 0;
 
             await ClearInputStreamsAsync().ConfigureAwait(false);
@@ -143,7 +143,7 @@ namespace Discord.Audio
         public AudioOutStream CreateOpusStream(int bufferMillis)
         {
             var outputStream = new OutputStream(ApiClient); //Ignores header
-            var sodiumEncrypter = new SodiumEncryptStream( outputStream, this); //Passes header
+            var sodiumEncrypter = new SodiumEncryptStream(outputStream, this); //Passes header
             var rtpWriter = new RTPWriteStream(sodiumEncrypter, _ssrc); //Consumes header, passes
             return new BufferedWriteStream(rtpWriter, this, bufferMillis, _connection.CancelToken, _audioLogger); //Generates header
         }

@@ -62,14 +62,18 @@ namespace Discord.WebSocket
             => ChannelHelper.ModifyAsync(this, Discord, func, options);
 
         /// <inheritdoc />
-        public async Task<IAudioClient> ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
+        public async Task ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
         {
-            return await Guild.ConnectAudioAsync(Id, selfDeaf, selfMute, external).ConfigureAwait(false);
+            await Guild.ConnectAudioAsync(Id, selfDeaf, selfMute, external).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task DisconnectAsync()
             => await Guild.DisconnectAudioAsync();
+
+        /// <inheritdoc />
+        public IAudioClient AudioClient => Guild.AudioClient;
+
 
         /// <inheritdoc />
         public override SocketGuildUser GetUser(ulong id)
@@ -89,6 +93,7 @@ namespace Discord.WebSocket
             => await ChannelHelper.GetInvitesAsync(this, Discord, options).ConfigureAwait(false);
 
         private string DebuggerDisplay => $"{Name} ({Id}, Voice)";
+
         internal new SocketVoiceChannel Clone() => MemberwiseClone() as SocketVoiceChannel;
 
         //IGuildChannel

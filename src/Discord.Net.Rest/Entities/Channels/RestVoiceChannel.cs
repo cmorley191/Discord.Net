@@ -60,7 +60,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         public Task SyncPermissionsAsync(RequestOptions options = null)
             => ChannelHelper.SyncPermissionsAsync(this, Discord, options);
-         
+
         //Invites
         /// <inheritdoc />
         public async Task<IInviteMetadata> CreateInviteAsync(int? maxAge = 86400, int? maxUses = null, bool isTemporary = false, bool isUnique = false, RequestOptions options = null)
@@ -74,8 +74,9 @@ namespace Discord.Rest
         //IAudioChannel
         /// <inheritdoc />
         /// <exception cref="NotSupportedException">Connecting to a REST-based channel is not supported.</exception>
-        Task<IAudioClient> IAudioChannel.ConnectAsync(bool selfDeaf, bool selfMute, bool external) { throw new NotSupportedException(); }
+        Task IAudioChannel.ConnectAsync(bool selfDeaf, bool selfMute, bool external) { throw new NotSupportedException(); }
         Task IAudioChannel.DisconnectAsync() { throw new NotSupportedException(); }
+        IAudioClient IAudioChannel.AudioClient => throw new NotSupportedException();
 
         //IGuildChannel
         /// <inheritdoc />

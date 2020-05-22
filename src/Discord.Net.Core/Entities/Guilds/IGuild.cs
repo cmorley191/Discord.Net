@@ -163,10 +163,10 @@ namespace Discord
         /// </returns>
         string VoiceRegionId { get; }
         /// <summary>
-        ///     Gets the <see cref="IAudioClient"/> currently associated with this guild.
+        ///     Gets the <see cref="IAudioClient"/> that manages the connections to this guild's <see cref="IAudioChannel"/> instances.
         /// </summary>
         /// <returns>
-        ///     An <see cref="IAudioClient"/> currently associated with this guild.
+        ///     An <see cref="IAudioClient"/> that manages the connections to this guild's <see cref="IAudioChannel"/> instances.
         /// </returns>
         IAudioClient AudioClient { get; }
         /// <summary>

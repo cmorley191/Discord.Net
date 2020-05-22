@@ -16,7 +16,9 @@ namespace Discord
 
         public ulong Id => throw new NotImplementedException();
 
-        public Task<IAudioClient> ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
+        public IAudioClient AudioClient => throw new NotImplementedException();
+
+        public Task ConnectAsync(bool selfDeaf = false, bool selfMute = false, bool external = false)
         {
             throw new NotImplementedException();
         }
@@ -97,6 +99,11 @@ namespace Discord
         }
 
         public Task TriggerTypingAsync(RequestOptions options = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IAudioChannel.ConnectAsync(bool selfDeaf, bool selfMute, bool external)
         {
             throw new NotImplementedException();
         }
